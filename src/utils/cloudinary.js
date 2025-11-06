@@ -38,7 +38,7 @@ cloudinary.config({
 export const uploadOnCloudinary = async (localFilePath) => {
   try {
     if (!localFilePath) {
-      console.log("No local file path provided");
+      // console.log("No local file path provided");
       return null;
     }
 
