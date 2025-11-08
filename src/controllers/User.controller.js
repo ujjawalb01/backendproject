@@ -204,7 +204,7 @@ const changeCurrentPassword = asyncHandler(async(req,res)=>{
   if (!(newPassword === confpassword)) {
     throw new ApiError(401, "new pass and conf pass should be same")
   }
-  const user = User.findById(req.user?._id)
+  const user = await User.findById(req.user?._id)
   const isPasswordCorrect = await user.isPasswordCorrect(oldPassword)
 
   if (!isPasswordCorrect) {
@@ -212,7 +212,7 @@ const changeCurrentPassword = asyncHandler(async(req,res)=>{
   }
 
   user.password = newPassword
-  await user.saave({validateBeforeSave: false})
+  await user.save({validateBeforeSave: false})
   return res
   .status(200)
   .json(new ApiResponse(200,{},"Password changed successfully"))
@@ -416,7 +416,6 @@ const getWatchHistory = asyncHandler(async(req,res)=>{
       )
     )
 })
-
 
 
 export {
